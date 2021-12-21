@@ -10,6 +10,7 @@ import {
 	Button,
 	makeStyles
 } from "@material-ui/core";
+import {gql, useQuery} from "@apollo/client"
 import Day from "./Day";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,15 +32,45 @@ const useStyles = makeStyles((theme) => ({
 	bold: {fontWeight: "bold"}
 }))
 
+const QUERY = gql`
+	query {
+		today {
+			block
+			testing
+			schedule {
+				schedule
+				name
+			}
+		}
+		currentAnnouncements {
+			announcement
+			category
+		}
+		upcomingEvents {
+			date
+			name
+		}
+	}
+`;
+
 function Home() {
 	const classes = useStyles();
+
+	const { loading, error, data } = useQuery(QUERY);
+
+	if (loading) return <Typography align="center">Loading...</Typography>
+	if (error) {
+		console.error(error)
+		return <Typography align="center">Error grabbing data: {error.messsage}</Typography>
+	}
+
 	return (
 		<div className={classes.virtCenter}>
 			<Grid container justifyContent="center" alignItems="stretch" spacing={1} className={classes.virtCenterChild}>
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<div className={classes.virtCenter} style={{flexDirection: "column"}}>
-							<Day/>
+							<Day today={data.today}/>
 						</div>
 					</Paper>
 				</Grid>
@@ -48,22 +79,13 @@ function Home() {
 						<Typography align="center" className={classes.bold}>This Week</Typography>
 						<Table>
 							<TableBody>
-								<TableRow>
-									<TableCell>Mon, 12/6</TableCell>
-									<TableCell>First Day of Marking Period 3</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>Wed, 12/8</TableCell>
-									<TableCell>SU Cabinet Meeting</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>Mon, 12/10</TableCell>
-									<TableCell>Marking Period 2 Grades Due</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>Mon, 12/10</TableCell>
-									<TableCell>Music Department's Choral Concert at 6:00pm</TableCell>
-								</TableRow>
+								{data.upcomingEvents.map(ev =>
+									<TableRow>
+										<TableCell>
+										{["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][new Date(ev.date).getUTCDay()]}, {ev.date.split("-")[1]}/{ev.date.split("-")[2]}</TableCell>
+										<TableCell>{ev.name}</TableCell>
+									</TableRow>
+								)}
 							</TableBody>
 						</Table>
 					</Paper>
@@ -91,13 +113,13 @@ function Home() {
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography className={classes.bold} align="center">General Announcements</Typography>
-						<Typography>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Typography>
+						<Typography>{data.currentAnnouncements.find(ann => ann.category === "general")?.announcement || "No Announcement Found"}</Typography>
 					</Paper>
 				</Grid>
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography className={classes.bold} align="center">Caucus Announcements</Typography>
-						<Typography>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Typography>
+						<Typography>{data.currentAnnouncements.find(ann => ann.category === "caucus")?.announcement || "No Announcement Found"}</Typography>
 					</Paper>
 				</Grid>
 			</Grid>

@@ -1,9 +1,12 @@
 import React from "react"
 import Home from "./comps/Home";
+import ApolloProvider from "./comps/context/ApolloProvider";
 
 function App() {
 	return (
-		<Home/>
+		<ApolloProvider>
+			<Home/>
+		</ApolloProvider>
 	);
 }
 
