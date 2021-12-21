@@ -92,6 +92,7 @@ function Home() {
 				</Grid>
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
+						<Typography className={classes.bold} align="center">Quick Links</Typography>
 						<Grid container alignItems="center" alignContent="center" justifyContent="space-around" style={{height: "100%"}} spacing={1}>
 							<Grid item xs={6}>
 								<Button fullWidth variant="contained">Health Screening</Button>
