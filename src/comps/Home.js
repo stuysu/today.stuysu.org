@@ -29,7 +29,12 @@ const useStyles = makeStyles((theme) => ({
 	virtCenterChild: {
 		padding: theme.spacing(1)
 	},
-	bold: {fontWeight: "bold"}
+	bold: {fontWeight: "bold"},
+	html: {
+		"& *": {
+			margin: 0
+		}
+	}
 }))
 
 const QUERY = gql`
@@ -49,6 +54,7 @@ const QUERY = gql`
 		upcomingEvents {
 			date
 			name
+			id
 		}
 	}
 `;
@@ -70,7 +76,11 @@ function Home() {
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<div className={classes.virtCenter} style={{flexDirection: "column"}}>
-							<Day today={data.today}/>
+							{
+								data.today ?
+									<Day today={data.today}/> :
+									<Typography className={classes.bold}>No schedule data for today.</Typography>
+							}
 						</div>
 					</Paper>
 				</Grid>
@@ -80,7 +90,7 @@ function Home() {
 						<Table>
 							<TableBody>
 								{data.upcomingEvents.map(ev =>
-									<TableRow>
+									<TableRow key={ev.id}>
 										<TableCell>
 										{["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][new Date(ev.date).getUTCDay()]}, {ev.date.split("-")[1]}/{ev.date.split("-")[2]}</TableCell>
 										<TableCell>{ev.name}</TableCell>
@@ -114,13 +124,13 @@ function Home() {
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography className={classes.bold} align="center">General Announcements</Typography>
-						<Typography>{data.currentAnnouncements.find(ann => ann.category === "general")?.announcement || "No Announcement Found"}</Typography>
+						<Typography className={classes.html} dangerouslySetInnerHTML={{ __html: data.currentAnnouncements.find(ann => ann.category === "general")?.announcement || "No Announcement Found"}}/>
 					</Paper>
 				</Grid>
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography className={classes.bold} align="center">Caucus Announcements</Typography>
-						<Typography>{data.currentAnnouncements.find(ann => ann.category === "caucus")?.announcement || "No Announcement Found"}</Typography>
+						<Typography className={classes.html} dangerouslySetInnerHTML={{ __html: data.currentAnnouncements.find(ann => ann.category === "caucus")?.announcement || "No Announcement Found"}}/>
 					</Paper>
 				</Grid>
 			</Grid>
