@@ -50,7 +50,7 @@ function Days() {
 	const [date, setDate] = useState(today());
 	const [testing, setTesting] = useState("");
 	const [block, setBlock] = useState("A");
-	const [schedule, setSchedule] = useState(3);
+	const [schedule, setSchedule] = useState(1);
 
 	const { loading, error, data, refetch } = useQuery(QUERY);
 	const [editMutation, { error: eErr }] = useMutation(MUTATION, {
@@ -78,7 +78,7 @@ function Days() {
 		setDate(today());
 		setTesting("");
 		setBlock("A");
-		setSchedule(3);
+		setSchedule(1);
 	};
 
 	return (
