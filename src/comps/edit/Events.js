@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {gql, useQuery, useMutation} from "@apollo/client"
 import {
 	makeStyles,
@@ -10,7 +10,12 @@ import {
 	IconButton,
 	TextField,
 	Button,
-	Grid
+	Grid,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogContentText,
+	DialogActions
 } from "@material-ui/core"
 import {
 	Edit,
@@ -41,6 +46,24 @@ const CREATE_MUTATION = gql`
 	}
 `;
 
+const EDIT_MUTATION = gql`
+	mutation ($name: String, $date: Date, $id: Int!) {
+		alterEvent(name: $name, date: $date, id: $id) {
+			id
+		}
+	}
+`;
+
+const DELETE_MUTATION = gql`
+	mutation ($id: Int!) {
+		removeEvent(id: $id)
+	}
+`;
+
+function today() {
+	const now = new Date();
+	return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
+}
 function Events() {
 	const classes = useStyles()
 
@@ -48,19 +71,48 @@ function Events() {
 
 	const [name, setName] = useState("");
 	const now = new Date();
-	const [date, setDate] = useState(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)
+	const [date, setDate] = useState(today())
 
 	const [createMutation, {error: cErr}] = useMutation(CREATE_MUTATION, {
 		update(cache) {
 			cache.reset().then(() => refetch())
 		}
 	})
-
 	const create = () => {
 		if (!name) return
 		createMutation({variables: {name, date}})
 		setName("");
-		setDate(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)
+		setDate(today())
+	}
+
+	const [editMutation, {error: eErr}] = useMutation(EDIT_MUTATION, {
+		update(cache) {
+			cache.reset().then(() => refetch())
+		}
+	})
+	const [editing, setEditing] = useState(-1);
+	const [editingName, setEditingName] = useState("");
+	const [editingDate, setEditingDate] = useState(today());
+	useEffect(() => {
+		const event = data?.upcomingEvents.find(ev => ev.id === editing)
+		if (!event) return
+		setEditingName(event.name)
+		setEditingDate(event.date)
+	}, [editing])
+	const edit = () => {
+		editMutation({variables: {id: editing, name: editingName, date: editingDate}})
+		setEditing(-1)
+	}
+
+	const [deleteMutation, {error: dErr}] = useMutation(DELETE_MUTATION, {
+		update(cache) {
+			cache.reset().then(() => refetch())
+		}
+	})
+	const [deleting, setDeleting] = useState(-1);
+	const del = () => {
+		deleteMutation({variables:{id: deleting}})
+		setDeleting(-1)
 	}
 
 	return (
@@ -75,6 +127,29 @@ function Events() {
 				</Grid>
 			</Grid>
 
+			<Dialog open={editing >= 0} onClose={() => setEditing(-1)}>
+				<DialogTitle>Edit Event</DialogTitle>
+				<DialogContent>
+					<TextField label="Name" fullWidth value={editingName} onChange={e => setEditingName(e.target.value)} variant="outlined" className={classes.marginBottom}/>
+					<TextField label="Date" type="date" value={editingDate} onChange={e => setEditingDate(e.target.value)} variant="outlined" fullWidth/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setEditing(-1)}>Cancel</Button>
+					<Button onClick={edit}>Submit</Button>
+				</DialogActions>
+			</Dialog>
+
+			<Dialog open={deleting >= 0} onClose={() => setDeleting(-1)}>
+				<DialogTitle>Are you sure you want to delete this event?</DialogTitle>
+				<DialogContent>
+					<DialogContentText>Name: {data?.upcomingEvents.find(ev => ev.id === deleting)?.name || ""}</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setDeleting(-1)}>Cancel</Button>
+					<Button autoFocus onClick={del}>Delete</Button>
+				</DialogActions>
+			</Dialog>
+
 			{
 				loading ?
 					<Typography>Loading events...</Typography> :
@@ -87,10 +162,10 @@ function Events() {
 									</TableCell>
 									<TableCell>{ev.name}</TableCell>
 									<TableCell align="right">
-										<IconButton>
+										<IconButton onClick={() => setEditing(ev.id)}>
 											<Edit/>
 										</IconButton>
-										<IconButton>
+										<IconButton onClick={() => setDeleting(ev.id)}>
 											<Delete/>
 										</IconButton>
 									</TableCell>
