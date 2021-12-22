@@ -59,9 +59,10 @@ function Days() {
 		}
 	});
 
-	if (error) {
-		console.error(error);
-		return <Typography>Error loading days: {error.message}</Typography>;
+	if (error || eErr) {
+		const fErr = error || eErr;
+		console.error(fErr);
+		return <Typography>Error loading days: {fErr.message}</Typography>;
 	}
 
 	const edit = () => {

@@ -67,7 +67,6 @@ function Events() {
 	const { data, error, loading, refetch } = useQuery(QUERY);
 
 	const [name, setName] = useState("");
-	const now = new Date();
 	const [date, setDate] = useState(today());
 
 	const [createMutation, { error: cErr }] = useMutation(CREATE_MUTATION, {
@@ -95,7 +94,7 @@ function Events() {
 		if (!event) return;
 		setEditingName(event.name);
 		setEditingDate(event.date);
-	}, [editing]);
+	}, [editing, data]);
 	const edit = () => {
 		editMutation({ variables: { id: editing, name: editingName, date: editingDate } });
 		setEditing(-1);
@@ -111,6 +110,12 @@ function Events() {
 		deleteMutation({ variables: { id: deleting } });
 		setDeleting(-1);
 	};
+
+	if (error || cErr || eErr || dErr) {
+		const fErr = error || cErr || eErr || dErr;
+		console.error(error);
+		return <Typography>Error communicating with database: {fErr.message}</Typography>;
+	}
 
 	return (
 		<div>
