@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
 	bold: { fontWeight: "bold" },
 	padding: { padding: theme.spacing(1) },
 	leftRightPadding: {
-		paddingLeft: theme.spacing(3),
-		paddingRight: theme.spacing(3)
+		paddingLeft: theme.spacing(0),
+		paddingRight: theme.spacing(0)
 	}
 }));
 
@@ -91,15 +91,23 @@ function Day({ today: { testing, block, schedule } }) {
 		month: "long",
 		day: "numeric"
 	};
-
 	const [time, setTime] = useState(timeString());
 	const [date, setDate] = useState(new Date().toLocaleDateString(undefined, dateStringOptions));
 	const [period, setPeriod] = useState(periodData(schedule));
-	setInterval(() => {
-		setTime(timeString);
-		setDate(new Date().toLocaleDateString(undefined, dateStringOptions));
-		setPeriod(periodData(schedule));
-	}, 1000);
+	useEffect(() => {
+		const dateStringOptions = {
+			weekday: "long",
+			year: "numeric",
+			month: "long",
+			day: "numeric"
+		};
+		const interval = setInterval(() => {
+			setTime(timeString);
+			setDate(new Date().toLocaleDateString(undefined, dateStringOptions));
+			setPeriod(periodData(schedule));
+		}, 1000);
+		return () => clearInterval(interval)
+	}, [period, schedule])
 
 	return (
 		<>
@@ -111,7 +119,7 @@ function Day({ today: { testing, block, schedule } }) {
 			</Typography>
 			<div style={{ display: "flex", width: "100%" }}>
 				<div className={classes.padding}>
-					<Typography variant="h1" style={{ margin: 0, lineHeight: 1 }} align="center">
+					<Typography variant="h1" style={{ margin: 0, lineHeight: 1, width: "2.3ch" }} align="center">
 						{block}
 					</Typography>
 					<Typography align="center">{schedule.name}</Typography>

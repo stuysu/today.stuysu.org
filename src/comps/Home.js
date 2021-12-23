@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Paper, Typography, Table, TableBody, TableRow, TableCell, Button, makeStyles } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import Day from "./Day";
+import { ColorModeContext } from "./context/ThemeProvider";
 
 const useStyles = makeStyles(theme => ({
 	paper: {
@@ -24,6 +25,13 @@ const useStyles = makeStyles(theme => ({
 		"& *": {
 			margin: 0
 		}
+	},
+	body: {
+		backgroundColor: theme.palette.bodyBackground
+	},
+	noMargin: {
+		margin: 0,
+		width: "100%",
 	}
 }));
 
@@ -51,6 +59,7 @@ const QUERY = gql`
 
 function Home() {
 	const classes = useStyles();
+	const toggleColorMode = useContext(ColorModeContext)
 
 	const { loading, error, data } = useQuery(QUERY);
 
@@ -61,13 +70,13 @@ function Home() {
 	}
 
 	return (
-		<div className={classes.virtCenter}>
+		<div className={`${classes.virtCenter} ${classes.body}`}>
 			<Grid
 				container
 				justifyContent="center"
 				alignItems="stretch"
 				spacing={1}
-				className={classes.virtCenterChild}
+				className={`${classes.virtCenterChild} ${classes.noMargin}`}
 			>
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
 					<Paper className={classes.paper}>
@@ -118,22 +127,22 @@ function Home() {
 							spacing={1}
 						>
 							<Grid item xs={6}>
-								<Button fullWidth variant="contained">
+								<Button fullWidth variant="contained" color="primary" onClick={toggleColorMode}>
+									Toggle Dark Mode
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+								<Button fullWidth variant="contained" color="primary">
 									Health Screening
 								</Button>
 							</Grid>
 							<Grid item xs={6}>
-								<Button fullWidth variant="contained">
+								<Button fullWidth variant="contained" color="primary">
 									Health Screening
 								</Button>
 							</Grid>
 							<Grid item xs={6}>
-								<Button fullWidth variant="contained">
-									Health Screening
-								</Button>
-							</Grid>
-							<Grid item xs={6}>
-								<Button fullWidth variant="contained">
+								<Button fullWidth variant="contained" color="primary">
 									Health Screening
 								</Button>
 							</Grid>
@@ -143,7 +152,7 @@ function Home() {
 			</Grid>
 			<Grid
 				container
-				className={classes.virtCenterChild}
+				className={`${classes.virtCenterChild} ${classes.noMargin}`}
 				justifyContent="center"
 				alignItems="stretch"
 				spacing={1}
