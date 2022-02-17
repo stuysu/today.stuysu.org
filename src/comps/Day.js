@@ -5,8 +5,8 @@ const useStyles = makeStyles(theme => ({
 	bold: { fontWeight: "bold" },
 	padding: { padding: theme.spacing(1) },
 	leftRightPadding: {
-		paddingLeft: theme.spacing(0),
-		paddingRight: theme.spacing(0)
+		paddingLeft: theme.spacing(1),
+		paddingRight: theme.spacing(1)
 	}
 }));
 
@@ -118,14 +118,14 @@ function Day({ today: { testing, block, schedule } }) {
 				{time}
 			</Typography>
 			<div style={{ display: "flex", width: "100%" }}>
-				<div className={classes.padding}>
+				<div zing={""/*className={classes.padding}*/}>
 					<Typography variant="h1" style={{ margin: 0, lineHeight: 1, width: "2.3ch" }} align="center">
 						{block}
 					</Typography>
 					<Typography align="center">{schedule.name}</Typography>
 				</div>
-				<div style={{ flexGrow: 1 }} className={classes.padding}>
-					<div className={classes.leftRightPadding}>
+				<div style={{ flexGrow: 1 }} className={classes.leftRightPadding}>
+					<div>
 						<Typography align="center" className={classes.bold}>
 							{period.name}
 						</Typography>

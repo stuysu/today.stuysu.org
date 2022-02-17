@@ -6,7 +6,8 @@ import { GRAPHQL_URI } from "../../constants";
 // stuyactivities uses an "uploadLink" with credentials so maybe switch to that when authenticating? (TODO)
 const client = new ApolloClient({
 	uri: GRAPHQL_URI,
-	cache: new InMemoryCache()
+	cache: new InMemoryCache(),
+	credentials: "include"
 });
 
 const ApolloProvider = props => {

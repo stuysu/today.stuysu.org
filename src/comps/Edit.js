@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Grid, Typography, Paper } from "@material-ui/core";
 
+import LoggedIn from "./LoggedIn";
 import Announcements from "./edit/Announcements";
 import Events from "./edit/Events";
 import Days from "./edit/Days";
@@ -22,7 +23,7 @@ function Edit() {
 	const classes = useStyles();
 
 	return (
-		<div>
+		<LoggedIn>
 			<Typography variant="h3" align="center">
 				Edit the Site
 			</Typography>
@@ -52,7 +53,7 @@ function Edit() {
 					</Paper>
 				</Grid>
 			</Grid>
-		</div>
+		</LoggedIn>
 	);
 }
 
