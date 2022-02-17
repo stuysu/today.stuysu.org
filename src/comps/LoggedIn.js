@@ -1,4 +1,5 @@
-import React, {useState, useEffect, createContext} from "react"
+// TODO: create context import React, {useState, useEffect, createContext} from "react"
+import React, {useState, useEffect} from "react"
 import {gql, useQuery, useMutation} from "@apollo/client"
 import {GoogleLogin} from "react-google-login"
 import {GOOGLE_AUTH_CLIENT_ID} from "../constants"
@@ -56,12 +57,13 @@ function LoggedIn(props) {
 	const [logout] = useMutation(LOGOUT_MUTATION, {
 		onCompleted() {
 			setLoggedIn(false)
+			refetch()
 		}
 	})
 
 	const [loggedIn, setLoggedIn] = useState(false)
 	const success = response => {
-		const profile = response.getBasicProfile()
+		//const profile = response.getBasicProfile()
 		login({
 			variables: {
 				token: response.getAuthResponse().id_token

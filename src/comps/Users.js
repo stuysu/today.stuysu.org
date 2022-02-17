@@ -19,7 +19,6 @@ import {
 	IconButton,
 	Dialog,
 	DialogTitle,
-	DialogContent,
 	DialogActions
 } from "@material-ui/core"
 import {
@@ -73,7 +72,8 @@ const REMOVE_MUTATION = gql`
 
 export default function Users() {
 	const classes = useStyles()
-	const {loading, error, data, refetch} = useQuery(QUERY)
+	// TODO: Error checking const {loading, error, data, refetch} = useQuery(QUERY)
+	const {loading, data, refetch} = useQuery(QUERY)
 	const [editingId, setEditingId] = useState(-1)
 	const editingUser = editingId < 0 ? undefined : data?.users.find(user => user.id === editingId)
 	const action = editingId < 0 ?

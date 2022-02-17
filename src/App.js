@@ -2,7 +2,6 @@ import React from "react";
 import Home from "./comps/Home";
 import Edit from "./comps/Edit";
 import Users from "./comps/Users";
-import LoggedIn from "./comps/LoggedIn";
 import ApolloProvider from "./comps/context/ApolloProvider";
 import { ThemeProvider } from "./comps/context/ThemeProvider";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
