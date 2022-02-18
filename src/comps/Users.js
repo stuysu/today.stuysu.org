@@ -40,6 +40,10 @@ const useStyles = makeStyles(theme => ({
 		position: "fixed",
 		top: theme.spacing(1),
 		right: theme.spacing(1)
+	},
+	container: {
+		maxWidth: "800px",
+		margin: "auto"
 	}
 }))
 
@@ -163,78 +167,76 @@ export default function Users() {
 			<Typography variant="h3" align="center">
 				Edit the Users
 			</Typography>
-			<Grid container justifyContent="center" spacing={1} className={classes.padding}>
-				<Grid item xl={5} lg={5} md={6} sm={8} xs={12}>
-					<Paper className={classes.paper}>
-						<Typography className={classes.title} align="center">{action}</Typography>
-						<FormGroup>
-							<FormControlLabel control={<Checkbox checked={users} onChange={e => setUsers(e.target.checked)}/>} label="Can Edit Users"/>
-							<FormControlLabel control={<Checkbox checked={events} onChange={e => setEvents(e.target.checked)}/>} label="Can Edit Events"/>
-							<FormControlLabel control={<Checkbox checked={days} onChange={e => setDays(e.target.checked)}/>} label="Can Edit Days"/>
-							<FormControlLabel
-								control={<Checkbox checked={announcements.general} onChange={e => setAnnouncements({...announcements, general: e.target.checked})}/>}
-								label="Can Edit General Announcements"
-							/>
-							<FormControlLabel
-								control={<Checkbox checked={announcements.caucus} onChange={e => setAnnouncements({...announcements, caucus: e.target.checked})}/>}
-								label="Can Edit Caucus Announcements"
-							/>
-						</FormGroup>
-						<Grid container spacing={1}>
-							<Grid item xs={editingId < 0 ? 9 : 6}>
-								<TextField fullWidth variant="outlined" label="Email" value={email} onChange={e => setEmail(e.target.value)}/>
-							</Grid>
-							<Grid item xs={3}>
-								<Button variant="contained" fullWidth style={{ height: "100%" }} onClick={submit}>Submit</Button>
-							</Grid>
-							{
-								editingId >= 0 &&
-									<Grid item xs={3}>
-										<Button variant="contained" fullWidth style={{ height: "100%" }} onClick={() => setEditingId(-1)}>Cancel Edit</Button>
-									</Grid>
-							}
+			<div className={classes.container}>
+				<Paper className={classes.paper}>
+					<Typography className={classes.title} align="center">{action}</Typography>
+					<FormGroup>
+						<FormControlLabel control={<Checkbox checked={users} onChange={e => setUsers(e.target.checked)}/>} label="Can Edit Users"/>
+						<FormControlLabel control={<Checkbox checked={events} onChange={e => setEvents(e.target.checked)}/>} label="Can Edit Events"/>
+						<FormControlLabel control={<Checkbox checked={days} onChange={e => setDays(e.target.checked)}/>} label="Can Edit Days"/>
+						<FormControlLabel
+							control={<Checkbox checked={announcements.general} onChange={e => setAnnouncements({...announcements, general: e.target.checked})}/>}
+							label="Can Edit General Announcements"
+						/>
+						<FormControlLabel
+							control={<Checkbox checked={announcements.caucus} onChange={e => setAnnouncements({...announcements, caucus: e.target.checked})}/>}
+							label="Can Edit Caucus Announcements"
+						/>
+					</FormGroup>
+					<Grid container spacing={1}>
+						<Grid item xs={editingId < 0 ? 9 : 6}>
+							<TextField fullWidth variant="outlined" label="Email" value={email} onChange={e => setEmail(e.target.value)}/>
 						</Grid>
-						<Typography className={classes.title} align="center">Users</Typography>
-						{loading ? <Typography>Loading Users...</Typography> :
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Name</TableCell>
-										<TableCell>Email</TableCell>
-										<TableCell>Permissions</TableCell>
-										<TableCell></TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										data?.users?.map(user => (
-											<TableRow>
-												<TableCell>{user.firstName} {user.lastName}</TableCell>
-												<TableCell>{user.email}</TableCell>
-												<TableCell>{
-													Object.entries(JSON.parse(user.permissions)).filter(perm => perm[1]).map(perm =>
-														typeof perm[1] === "boolean" ?
-															perm[0] :
-															Object.keys(perm[1]).filter(subc => perm[1][subc]).map(subc => `${perm[0]} > ${subc}`).join(", ")
-													).join(", ")
-												}</TableCell>
-												<TableCell>
-													<IconButton onClick={() => setEditingId(user.id)}>
-														<Edit/>
-													</IconButton>
-													<IconButton onClick={() => setRemovingId(user.id)}>
-														<Clear/>
-													</IconButton>
-												</TableCell>
-											</TableRow>
-										))
-									}
-								</TableBody>
-							</Table>
+						<Grid item xs={3}>
+							<Button variant="contained" fullWidth style={{ height: "100%" }} onClick={submit}>Submit</Button>
+						</Grid>
+						{
+							editingId >= 0 &&
+								<Grid item xs={3}>
+									<Button variant="contained" fullWidth style={{ height: "100%" }} onClick={() => setEditingId(-1)}>Cancel Edit</Button>
+								</Grid>
 						}
-					</Paper>
-				</Grid>
-			</Grid>
+					</Grid>
+					<Typography className={classes.title} align="center">Users</Typography>
+					{loading ? <Typography>Loading Users...</Typography> :
+						<Table>
+							<TableHead>
+								<TableRow>
+									<TableCell>Name</TableCell>
+									<TableCell>Email</TableCell>
+									<TableCell>Permissions</TableCell>
+									<TableCell></TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{
+									data?.users?.map(user => (
+										<TableRow>
+											<TableCell>{user.firstName} {user.lastName}</TableCell>
+											<TableCell>{user.email}</TableCell>
+											<TableCell>{
+												Object.entries(JSON.parse(user.permissions)).filter(perm => perm[1]).map(perm =>
+													typeof perm[1] === "boolean" ?
+														perm[0] :
+														Object.keys(perm[1]).filter(subc => perm[1][subc]).map(subc => `${perm[0]} > ${subc}`).join(", ")
+												).join(", ")
+											}</TableCell>
+											<TableCell>
+												<IconButton onClick={() => setEditingId(user.id)}>
+													<Edit/>
+												</IconButton>
+												<IconButton onClick={() => setRemovingId(user.id)}>
+													<Clear/>
+												</IconButton>
+											</TableCell>
+										</TableRow>
+									))
+								}
+							</TableBody>
+						</Table>
+					}
+				</Paper>
+			</div>
 			<Dialog open={removingId > 0} onClose={() => setRemovingId(-1)}>
 				<DialogTitle>{removingAction}</DialogTitle>
 				<DialogActions>

@@ -35,8 +35,8 @@ function Edit() {
 			<Typography variant="h3" align="center">
 				Edit the Site
 			</Typography>
-			<Grid container justifyContent="center" spacing={1} className={classes.padding}>
-				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
+			<Grid container justifyContent="center" spacing={1} className={classes.padding} style={{ maxWidth: "11020px", margin: "auto" }}>
+				<Grid item xl={4} lg={5} md={7} sm={10} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography align="center" className={classes.title}>
 							Days
@@ -44,7 +44,7 @@ function Edit() {
 						<Days />
 					</Paper>
 				</Grid>
-				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
+				<Grid item xl={4} lg={5} md={7} sm={10} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography align="center" className={classes.title}>
 							Events
@@ -52,7 +52,7 @@ function Edit() {
 						<Events />
 					</Paper>
 				</Grid>
-				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
+				<Grid item xl={4} lg={5} md={7} sm={10} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography align="center" className={classes.title}>
 							Announcements

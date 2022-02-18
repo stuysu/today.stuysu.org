@@ -47,6 +47,12 @@ const useStyles = makeStyles(theme => ({
 	},
 	relative: {
 		position: "relative"
+	},
+	spacer: {
+		display: "none",
+		[theme.breakpoints.only("md")]: {
+			display: "block"
+		}
 	}
 }));
 
@@ -94,7 +100,8 @@ function Home() {
 				spacing={1}
 				className={`${classes.virtCenterChild} ${classes.noMargin}`}
 			>
-				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
 					<Paper className={fullscreen ? `${classes.paper} ${classes.fullscreen}` : `${classes.paper} ${classes.relative}`}>
 						<div className={classes.virtCenter}>
 							<div className={classes.virtCenter} style={{ flexDirection: "column" }}>
@@ -107,7 +114,9 @@ function Home() {
 						</div>
 					</Paper>
 				</Grid>
-				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography align="center" className={classes.bold}>
 							This Week
@@ -131,7 +140,9 @@ function Home() {
 						</Table>
 					</Paper>
 				</Grid>
-				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography className={classes.bold} align="center">
 							Quick Links
@@ -186,6 +197,7 @@ function Home() {
 						</Grid>
 					</Paper>
 				</Grid>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 			</Grid>
 			<Grid
 				container
@@ -194,7 +206,8 @@ function Home() {
 				alignItems="stretch"
 				spacing={1}
 			>
-				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography className={classes.bold} align="center">
 							General Announcements
@@ -209,7 +222,9 @@ function Home() {
 						/>
 					</Paper>
 				</Grid>
-				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+				<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
 					<Paper className={classes.paper}>
 						<Typography className={classes.bold} align="center">
 							Caucus Announcements
@@ -224,6 +239,7 @@ function Home() {
 						/>
 					</Paper>
 				</Grid>
+				<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 			</Grid>
 		</div>
 	);
