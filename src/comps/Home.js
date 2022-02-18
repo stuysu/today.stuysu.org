@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Grid, Paper, Typography, Table, TableBody, TableRow, TableCell, Button, makeStyles } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import Day from "./Day";
@@ -36,6 +36,17 @@ const useStyles = makeStyles(theme => ({
 	button: {
 		height: "100%",
 		textAlign: "center"
+	},
+	fullscreen: {
+		position: "fixed",
+		height: "100%",
+		width: "100%",
+		top: "0",
+		left: "0",
+		zIndex: "1000"
+	},
+	relative: {
+		position: "relative"
 	}
 }));
 
@@ -66,6 +77,7 @@ function Home() {
 	const toggleColorMode = useContext(ColorModeContext)
 
 	const { loading, error, data } = useQuery(QUERY);
+	const [fullscreen, setFullscreen] = useState(false)
 
 	if (loading) return <Typography align="center">Loading...</Typography>;
 	if (error) {
@@ -83,13 +95,15 @@ function Home() {
 				className={`${classes.virtCenterChild} ${classes.noMargin}`}
 			>
 				<Grid item xl={3} lg={3} md={4} sm={8} xs={12}>
-					<Paper className={classes.paper}>
-						<div className={classes.virtCenter} style={{ flexDirection: "column" }}>
-							{data.today ? (
-								<Day today={data.today} />
-							) : (
-								<Typography className={classes.bold}>No schedule data for today.</Typography>
-							)}
+					<Paper className={fullscreen ? `${classes.paper} ${classes.fullscreen}` : `${classes.paper} ${classes.relative}`}>
+						<div className={classes.virtCenter}>
+							<div className={classes.virtCenter} style={{ flexDirection: "column" }}>
+								{data.today ? (
+									<Day today={data.today} setFullscreen={setFullscreen} fullscreen={fullscreen} />
+								) : (
+									<Typography className={classes.bold}>No schedule data for today.</Typography>
+								)}
+							</div>
 						</div>
 					</Paper>
 				</Grid>

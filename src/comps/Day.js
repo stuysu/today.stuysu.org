@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Typography, makeStyles } from "@material-ui/core";
+import { Grid, Typography, makeStyles, Button, IconButton } from "@material-ui/core";
+import { Fullscreen, FullscreenExit } from "@material-ui/icons"
 
 const useStyles = makeStyles(theme => ({
 	bold: { fontWeight: "bold" },
@@ -7,6 +8,11 @@ const useStyles = makeStyles(theme => ({
 	leftRightPadding: {
 		paddingLeft: theme.spacing(1),
 		paddingRight: theme.spacing(1)
+	},
+	button: {
+		position: "absolute",
+		top: 0,
+		right: 0
 	}
 }));
 
@@ -82,7 +88,7 @@ function periodData(scheduleObj) {
 	};
 }
 
-function Day({ today: { testing, block, schedule } }) {
+function Day({ today: { testing, block, schedule }, fullscreen, setFullscreen }) {
 	const classes = useStyles();
 
 	const dateStringOptions = {
@@ -111,6 +117,9 @@ function Day({ today: { testing, block, schedule } }) {
 
 	return (
 		<>
+			<IconButton className={classes.button} onClick={() => setFullscreen(!fullscreen)}>
+				{fullscreen ? <FullscreenExit/> : <Fullscreen/>}
+			</IconButton>
 			<Typography align="center" className={classes.bold}>
 				{date}
 			</Typography>
