@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Typography, makeStyles, Button, IconButton } from "@material-ui/core";
+import { Grid, Typography, makeStyles, IconButton } from "@material-ui/core";
 import { Fullscreen, FullscreenExit } from "@material-ui/icons"
 
 const useStyles = makeStyles(theme => ({
