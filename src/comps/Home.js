@@ -32,6 +32,10 @@ const useStyles = makeStyles(theme => ({
 	noMargin: {
 		margin: 0,
 		width: "100%",
+	},
+	button: {
+		height: "100%",
+		textAlign: "center"
 	}
 }));
 
@@ -120,30 +124,49 @@ function Home() {
 						</Typography>
 						<Grid
 							container
-							alignItems="center"
+							alignItems="stretch"
 							alignContent="center"
 							justifyContent="space-around"
-							style={{ height: "100%" }}
 							spacing={1}
 						>
 							<Grid item xs={6}>
-								<Button fullWidth variant="contained" color="primary" onClick={toggleColorMode}>
+								<Button className={classes.button} fullWidth variant="contained" color="primary" onClick={toggleColorMode}>
 									Toggle Dark Mode
 								</Button>
 							</Grid>
 							<Grid item xs={6}>
-								<Button fullWidth variant="contained" color="primary">
+								<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://healthscreening.schools.nyc/">
 									Health Screening
 								</Button>
 							</Grid>
 							<Grid item xs={6}>
-								<Button fullWidth variant="contained" color="primary">
-									Health Screening
+								<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.libguides.com/stuylib">
+									Library Website
 								</Button>
 							</Grid>
 							<Grid item xs={6}>
-								<Button fullWidth variant="contained" color="primary">
-									Health Screening
+								<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://auth.ioeducation.com/users/sign_in">
+									PupilPath/Skedula
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+								<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.entest.org/Stuyvesant%20HS%20Early%20Excuse%20form%202021-22.pdf">
+									Early Excuse Form
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+								<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSe9RTY0O8GkvnBE-P0VSh3TsH-ry57hanE8t5nOnq9UH3z9KQ/viewform">
+									Attendance Form
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+								<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.edu">
+									Stuy Website
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+								<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuysu.org">
+									Student Union
 								</Button>
 							</Grid>
 						</Grid>
