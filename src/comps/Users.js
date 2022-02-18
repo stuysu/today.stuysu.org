@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react"
 
-import LoggedIn from "./LoggedIn"
 import {
 	makeStyles,
 	Grid,
@@ -26,6 +25,7 @@ import {
 	Clear
 } from "@material-ui/icons"
 import { gql, useQuery, useMutation } from "@apollo/client"
+import { Link } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
 	paper: {
@@ -35,6 +35,11 @@ const useStyles = makeStyles(theme => ({
 	title: {
 		fontWeight: "bold",
 		marginBottom: theme.spacing(1)
+	},
+	edit: {
+		position: "fixed",
+		top: theme.spacing(1),
+		right: theme.spacing(1)
 	}
 }))
 
@@ -151,7 +156,10 @@ export default function Users() {
 		}
 	}
 	return (
-		<LoggedIn>
+		<>
+			<Link to="/edit" className={classes.edit}>
+				<Button variant="contained">Edit Site</Button>
+			</Link>
 			<Typography variant="h3" align="center">
 				Edit the Users
 			</Typography>
@@ -234,6 +242,6 @@ export default function Users() {
 					<Button onClick={() => setRemovingId(-1)}>Cancel</Button>
 				</DialogActions>
 			</Dialog>
-		</LoggedIn>
+		</>
 	)
 }

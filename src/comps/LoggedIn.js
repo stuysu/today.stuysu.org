@@ -12,8 +12,8 @@ import {
 const useStyles = makeStyles((theme) => ({
 	loggedInAs: {
 		position: "fixed",
-		top: "0.75em",
-		left: "0.75em"
+		top: theme.spacing(1),
+		left: theme.spacing(1)
 	},
 	flexContainer: {
 		display: "flex",
