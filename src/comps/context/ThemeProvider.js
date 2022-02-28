@@ -1,24 +1,27 @@
 import React, {useState, useMemo, createContext} from "react";
 import { ThemeProvider as Provider, createTheme } from "@material-ui/core"
 
-const ColorModeContext = createContext({ toggleColorMode: () => {}})
+const ThemeContext = createContext({setTheme: () => {}, userTheme: {}})
 
 function ThemeProvider({children}) {
-	const [mode, setMode] = useState(window.localStorage.getItem("theme") || "light")
+	const [userTheme, setUserTheme] = useState(JSON.parse(window.localStorage.getItem("theme")) || {})
 	// Taken from the MUI docs
 	// the memo thing is apparently for optimization
-	const toggleColorMode = () => {
-		const newMode = mode === "light" ? "dark" : "light"
-		setMode(newMode)
-		window.localStorage.setItem("theme", newMode)
+	const setTheme = theme => {
+		setUserTheme(theme)
+		window.localStorage.setItem("theme", JSON.stringify(theme))
 	}
 	const theme = useMemo(
 		() => createTheme({
 			palette: {
-				type: mode,
-				bodyBackground: mode === "light" ? "#f6f5f4" : "#090a0b",
+				type: userTheme.type || "light",
+				bodyBackground: userTheme.background || (userTheme.type === "dark" ? "#090a0b" : "#f6f5f4"),
+				boxColor: userTheme.boxColor,
+				text: {
+					primary: userTheme.textColor || (userTheme.type === "dark" ? "#fff" : "#000")
+				},
 				primary: {
-					main: '#00897b',
+					main: userTheme.buttonColor || '#00897b',
 				},
 				secondary: {
 					main: '#d4e157',
@@ -32,19 +35,23 @@ function ThemeProvider({children}) {
 					lg: 1200,
 					xl: 1550
 				}
-			}
+			},
+			typography: {
+				//fontFamily: `'${userTheme.font}', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans"`
+				fontFamily: `'${userTheme.font}', -apple-system, BlinkMacSystemFont, sans-serif`
+			},
 		}),
-		[mode]
+		[userTheme]
 	)
 
 	return (
-		<ColorModeContext.Provider value={toggleColorMode}>
+		<ThemeContext.Provider value={{setTheme, userTheme}}>
 			<Provider theme={theme}>{children}</Provider>
-		</ColorModeContext.Provider>
+		</ThemeContext.Provider>
 	);
 }
 
 export {
 	ThemeProvider,
-	ColorModeContext
+	ThemeContext
 }
