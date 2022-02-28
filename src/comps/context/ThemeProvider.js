@@ -4,12 +4,12 @@ import { ThemeProvider as Provider, createTheme } from "@material-ui/core"
 const ThemeContext = createContext({setTheme: () => {}, userTheme: {}})
 
 function ThemeProvider({children}) {
-	const [userTheme, setUserTheme] = useState(JSON.parse(window.localStorage.getItem("theme")) || {})
+	const [userTheme, setUserTheme] = useState(JSON.parse(window.localStorage.getItem("userTheme")) || {})
 	// Taken from the MUI docs
 	// the memo thing is apparently for optimization
 	const setTheme = theme => {
 		setUserTheme(theme)
-		window.localStorage.setItem("theme", JSON.stringify(theme))
+		window.localStorage.setItem("userTheme", JSON.stringify(theme))
 	}
 	const theme = useMemo(
 		() => createTheme({
