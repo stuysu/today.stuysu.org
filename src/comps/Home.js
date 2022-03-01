@@ -54,6 +54,9 @@ const useStyles = makeStyles(theme => ({
 		[theme.breakpoints.only("md")]: {
 			display: "block"
 		}
+	},
+	noDisplay: {
+		display: "none"
 	}
 }));
 
@@ -120,7 +123,7 @@ function Home() {
 					</Grid>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
-					<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
+					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={classes.paper}>
 							<Typography align="center" className={classes.bold}>
 								This Week
@@ -146,7 +149,7 @@ function Home() {
 					</Grid>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
-					<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
+					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={classes.paper}>
 							<Typography className={classes.bold} align="center">
 								Quick Links
@@ -211,7 +214,7 @@ function Home() {
 					spacing={1}
 				>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
-					<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
+					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={classes.paper}>
 							<Typography className={classes.bold} align="center">
 								General Announcements
@@ -228,7 +231,7 @@ function Home() {
 					</Grid>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
-					<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
+					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={classes.paper}>
 							<Typography className={classes.bold} align="center">
 								Caucus Announcements
