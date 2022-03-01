@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
 		position: "absolute",
 		top: 0,
 		right: 0
+	},
+	textColor: {
+		color: theme.palette.text.primary
 	}
 }));
 
@@ -118,7 +121,7 @@ function Day({ today: { testing, block, schedule }, fullscreen, setFullscreen })
 	return (
 		<>
 			<IconButton className={classes.button} onClick={() => setFullscreen(!fullscreen)}>
-				{fullscreen ? <FullscreenExit/> : <Fullscreen/>}
+				{fullscreen ? <FullscreenExit className={classes.textColor}/> : <Fullscreen className={classes.textColor}/>}
 			</IconButton>
 			<Typography align="center" className={classes.bold}>
 				{date}
