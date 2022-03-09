@@ -132,7 +132,7 @@ export default function Users() {
 			return
 		}
 		setEmail(user.email)
-		const perms = JSON.parse(user.permissions)
+		const perms = user.permissions ? JSON.parse(user.permissions) : {}
 		setUsers(perms.users)
 		setEvents(perms.events)
 		setDays(perms.days)
@@ -214,7 +214,7 @@ export default function Users() {
 										<TableRow>
 											<TableCell>{user.firstName} {user.lastName}</TableCell>
 											<TableCell>{user.email}</TableCell>
-											<TableCell>{
+											<TableCell>{ user.permissions &&
 												Object.entries(JSON.parse(user.permissions)).filter(perm => perm[1]).map(perm =>
 													typeof perm[1] === "boolean" ?
 														perm[0] :

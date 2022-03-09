@@ -27,6 +27,7 @@ function timeString() {
 	}${date.getSeconds()}`;
 }
 
+// A copy of this function exists on the backend. If you update this, please update it there too.
 function periodData(scheduleObj) {
 	// sort periods by start time, just in case
 	// this might be unnecessary
