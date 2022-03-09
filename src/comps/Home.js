@@ -3,6 +3,7 @@ import { Grid, Paper, Typography, Table, TableBody, TableRow, TableCell, Button,
 import { gql, useQuery } from "@apollo/client";
 import Day from "./Day";
 import ThemeDialog from "./ThemeDialog";
+import ApiDialog from "./ApiDialog";
 
 const useStyles = makeStyles(theme => ({
 	paper: {
@@ -89,6 +90,7 @@ function Home() {
 	const [fullscreen, setFullscreen] = useState(false)
 
 	const [tdOpen, setTdOpen] = useState(false)
+	const [apiOpen, setApiOpen] = useState(false)
 
 	if (loading) return <Typography align="center">Loading...</Typography>;
 	if (error) {
@@ -99,6 +101,7 @@ function Home() {
 	return (
 		<>
 			<ThemeDialog tdOpen={tdOpen} tdClose={() => setTdOpen(false)}/>
+			<ApiDialog apiOpen={apiOpen} apiClose={() => setApiOpen(false)}/>
 			<div className={`${classes.virtCenter} ${classes.body}`}>
 				<Grid
 					container
@@ -199,6 +202,16 @@ function Home() {
 								<Grid item xs={6}>
 									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuysu.org">
 										Student Union
+									</Button>
+								</Grid>
+								<Grid item xs={6}>
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSepfBAG922lzR32cYbhB9LsppePddO1qe0WgeveBflweel5pQ/viewform">
+										Morning Ad Form
+									</Button>
+								</Grid>
+								<Grid item xs={6}>
+									<Button className={classes.button} fullWidth variant="contained" color="primary" onClick={() => setApiOpen(true)}>
+										Use the API
 									</Button>
 								</Grid>
 							</Grid>

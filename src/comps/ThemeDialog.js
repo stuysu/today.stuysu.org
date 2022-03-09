@@ -44,7 +44,7 @@ export default function ThemeDialog({tdOpen, tdClose}) {
 	const [textColor, setTextColor] = useState(userTheme.textColor || undefined)
 	const [font, setFont] = useState(userTheme.font || "Roboto")
 	return (
-		<Dialog open={tdOpen} onClose={() => tdClose()}>
+		<Dialog open={tdOpen} onClose={tdClose}>
 			<DialogTitle>Theme</DialogTitle>
 			<DialogContent>
 				<DialogContentText>The theme will be saved in a cookie that stays with your browser on this computer.</DialogContentText>
@@ -139,7 +139,7 @@ export default function ThemeDialog({tdOpen, tdClose}) {
 						tdClose()
 					}}
 				>Set</Button>
-				<Button onClick={() => tdClose()}>Close</Button>
+				<Button onClick={tdClose}>Close</Button>
 			</DialogActions>
 		</Dialog>
 	)
