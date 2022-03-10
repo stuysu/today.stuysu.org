@@ -247,13 +247,13 @@ function Home() {
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={classes.paper}>
 							<Typography className={classes.bold} align="center">
-								Caucus Announcements
+								Morning Announcements
 							</Typography>
 							<Typography
 								className={classes.html}
 								dangerouslySetInnerHTML={{
 									__html:
-										data.currentAnnouncements.find(ann => ann.category === "caucus")?.announcement ||
+										data.currentAnnouncements.find(ann => ann.category === "morning")?.announcement ||
 										"No Announcement Found"
 								}}
 							/>

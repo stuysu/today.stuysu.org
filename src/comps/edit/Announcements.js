@@ -82,7 +82,7 @@ function Announcements() {
 							label="Category"
 						>
 							<MenuItem value={"general"}>General</MenuItem>
-							<MenuItem value={"caucus"}>Caucus</MenuItem>
+							<MenuItem value={"morning"}>Morning</MenuItem>
 						</Select>
 					</FormControl>
 				</Grid>

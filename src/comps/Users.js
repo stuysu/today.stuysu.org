@@ -119,7 +119,7 @@ export default function Users() {
 	const [users, setUsers] = useState(false)
 	const [events, setEvents] = useState(false)
 	const [days, setDays] = useState(false)
-	const [announcements, setAnnouncements] = useState({caucus: false, general: false})
+	const [announcements, setAnnouncements] = useState({morning: false, general: false})
 
 	useEffect(() => {
 		const user = editingId < 0 ? undefined : data?.users.find(user => user.id === editingId)
@@ -128,7 +128,7 @@ export default function Users() {
 			setUsers(false)
 			setEvents(false)
 			setDays(false)
-			setAnnouncements({caucus: false, general: false})
+			setAnnouncements({morning: false, general: false})
 			return
 		}
 		setEmail(user.email)
@@ -137,7 +137,7 @@ export default function Users() {
 		setEvents(perms.events)
 		setDays(perms.days)
 		setAnnouncements({
-			caucus: perms.announcements?.caucus,
+			morning: perms.announcements?.morning,
 			general: perms.announcements?.general
 		})
 	}, [editingId, data])
@@ -179,8 +179,8 @@ export default function Users() {
 							label="Can Edit General Announcements"
 						/>
 						<FormControlLabel
-							control={<Checkbox checked={announcements.caucus} onChange={e => setAnnouncements({...announcements, caucus: e.target.checked})}/>}
-							label="Can Edit Caucus Announcements"
+							control={<Checkbox checked={announcements.morning} onChange={e => setAnnouncements({...announcements, morning: e.target.checked})}/>}
+							label="Can Edit Morning Announcements"
 						/>
 					</FormGroup>
 					<Grid container spacing={1}>
