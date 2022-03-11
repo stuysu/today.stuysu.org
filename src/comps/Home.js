@@ -26,6 +26,10 @@ const useStyles = makeStyles(theme => ({
 	html: {
 		"& *": {
 			margin: 0
+		},
+		"& a": {
+			fontWeight: "bold",
+			color: `${theme.palette.primary.main} !important`
 		}
 	},
 	body: {
