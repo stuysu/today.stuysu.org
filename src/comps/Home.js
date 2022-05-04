@@ -62,6 +62,10 @@ const useStyles = makeStyles(theme => ({
 	},
 	noDisplay: {
 		display: "none"
+	},
+	scroll: {
+		overflowY: "auto",
+		maxHeight: "300px"
 	}
 }));
 
@@ -131,9 +135,9 @@ function Home() {
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
-						<Paper className={classes.paper}>
+						<Paper className={`${classes.paper} ${classes.scroll}`}>
 							<Typography align="center" className={classes.bold}>
-								This Week
+								Upcoming Events
 							</Typography>
 							<Table>
 								<TableBody>
@@ -186,6 +190,16 @@ function Home() {
 								<Grid item xs={6}>
 									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://auth.ioeducation.com/users/sign_in">
 										PupilPath/Skedula
+									</Button>
+								</Grid>
+								<Grid item xs={6}>
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/cms/pages/stuyvesant-blog/">
+										Stuyvesant Blog
+									</Button>
+								</Grid>
+								<Grid item xs={6}>
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/">
+										Talos
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
