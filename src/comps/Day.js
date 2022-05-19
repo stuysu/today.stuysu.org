@@ -70,7 +70,7 @@ function periodData(scheduleObj) {
 					start: schedule[i].end,
 					end: "12:00 AM",
 					into: Math.floor((now - schedule[i].endDate) / (60 * 1000)),
-					left: "Not enough"
+					left: "-"
 				};
 
 			if (now <= schedule[i + 1].startDate)
@@ -88,7 +88,7 @@ function periodData(scheduleObj) {
 		name: "Before school",
 		start: "12:00 AM",
 		end: schedule[0].start,
-		into: "Not enough",
+		into: "-",
 		left: Math.floor((schedule[0].startDate - now) / (60 * 1000))
 	};
 }
@@ -137,11 +137,11 @@ function PFUI({date, time, block, period, schedule, testing}) {
 	// TODO clean up css
 	return (
 		<>
-			<div style={{ display: "flex", width: "100%" }}>
+			<div style={{ display: "flex", width: "100%", alignItems: "center" }}>
 				<div>
-					<Typography align="center">Period</Typography>
+					<Typography align="center">{period.name.match(/[^\d]+/)[0].trim()}</Typography>
 					<Typography variant="h1" style={{ margin: 0, lineHeight: 1, width: "2.3ch" }} align="center">
-						{period.name.match(/\d+/)[0]}
+						{period.name.match(/\d+/)[0] || "-"}
 					</Typography>
 					<Typography align="center">{schedule.name}</Typography>
 				</div>
@@ -156,14 +156,14 @@ function PFUI({date, time, block, period, schedule, testing}) {
 							<Typography align="center">minutes left</Typography>
 						</Grid>
 						<Grid item xs={12}>
-							<Typography align="center" variant="h5">{time}</Typography>
-							<Typography align="center" className={classes.bold}>{date}</Typography>
+							<Typography align="center" variant="h4">{time}</Typography>
+							<Typography align="center">{date}</Typography>
 						</Grid>
 						<Grid item xs={12}>
 							<div style={{ width: "100%", display: "flex", alignItems: "center"}} className={classes.leftRightPadding}>
 								<div>
-									<Typography className={classes.bold}>Testing today</Typography>
-									<Typography>{testing}</Typography>
+									<Typography className={classes.bold} align="center">Testing today</Typography>
+									<Typography align="center">{testing}</Typography>
 								</div>
 								<Typography align="right" style={{ flexGrow: 1 }} variant="h3">{block}</Typography>
 							</div>
