@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Grid, Typography, makeStyles, IconButton } from "@material-ui/core";
 import { Fullscreen, FullscreenExit } from "@material-ui/icons"
+import { ThemeContext } from "./context/ThemeProvider"
 
 const useStyles = makeStyles(theme => ({
 	bold: { fontWeight: "bold" },
@@ -94,6 +95,8 @@ function periodData(scheduleObj) {
 
 function Day({ today: { testing, block, schedule }, fullscreen, setFullscreen }) {
 	const classes = useStyles();
+	const {userTheme} = useContext(ThemeContext)
+	const UI = userTheme.UI || "Original"
 
 	const dateStringOptions = {
 		weekday: "long",
@@ -124,6 +127,57 @@ function Day({ today: { testing, block, schedule }, fullscreen, setFullscreen })
 			<IconButton className={classes.button} onClick={() => setFullscreen(!fullscreen)}>
 				{fullscreen ? <FullscreenExit className={classes.textColor}/> : <Fullscreen className={classes.textColor}/>}
 			</IconButton>
+			{ UI === "Original" && <OriginalUI date={date} time={time} block={block} period={period} schedule={schedule} testing={testing}/> }
+			{ UI === "Period Focus" && <PFUI date={date} time={time} block={block} period={period} schedule={schedule} testing={testing}/> }
+		</>
+	);
+}
+function PFUI({date, time, block, period, schedule, testing}) {
+	const classes = useStyles()
+	// TODO clean up css
+	return (
+		<>
+			<div style={{ display: "flex", width: "100%" }}>
+				<div>
+					<Typography align="center">Period</Typography>
+					<Typography variant="h1" style={{ margin: 0, lineHeight: 1, width: "2.3ch" }} align="center">
+						{period.name.match(/\d+/)[0]}
+					</Typography>
+					<Typography align="center">{schedule.name}</Typography>
+				</div>
+				<div style={{ flexGrow: 1 }} className={classes.leftRightPadding}>
+					<Grid container>
+						<Grid item xs={6}>
+							<Typography variant="h3" align="center">{period.into}</Typography>
+							<Typography align="center">minutes into</Typography>
+						</Grid>
+						<Grid item xs={6}>
+							<Typography variant="h3" align="center">{period.left}</Typography>
+							<Typography align="center">minutes left</Typography>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography align="center" variant="h5">{time}</Typography>
+							<Typography align="center" className={classes.bold}>{date}</Typography>
+						</Grid>
+						<Grid item xs={12}>
+							<div style={{ width: "100%", display: "flex", alignItems: "center"}} className={classes.leftRightPadding}>
+								<div>
+									<Typography className={classes.bold}>Testing today</Typography>
+									<Typography>{testing}</Typography>
+								</div>
+								<Typography align="right" style={{ flexGrow: 1 }} variant="h3">{block}</Typography>
+							</div>
+						</Grid>
+					</Grid>
+				</div>
+			</div>
+		</>
+	)
+}
+function OriginalUI({date, time, block, period, schedule, testing}) {
+	const classes = useStyles()
+	return (
+		<>
 			<Typography align="center" className={classes.bold}>
 				{date}
 			</Typography>
@@ -168,7 +222,7 @@ function Day({ today: { testing, block, schedule }, fullscreen, setFullscreen })
 				</div>
 			</div>
 		</>
-	);
+	)
 }
 
 export default Day;

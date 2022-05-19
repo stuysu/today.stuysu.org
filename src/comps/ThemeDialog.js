@@ -43,6 +43,7 @@ export default function ThemeDialog({tdOpen, tdClose}) {
 	const [buttonColor, setButtonColor] = useState(userTheme.buttonColor || undefined)
 	const [textColor, setTextColor] = useState(userTheme.textColor || undefined)
 	const [font, setFont] = useState(userTheme.font || "Roboto")
+	const [UI, setUI] = useState(userTheme.UI || "Original")
 	return (
 		<Dialog open={tdOpen} onClose={tdClose}>
 			<DialogTitle>Theme</DialogTitle>
@@ -131,11 +132,20 @@ export default function ThemeDialog({tdOpen, tdClose}) {
 						}
 					</Select>
 				</FormControl>
+				<br/>
+				<br/>
+				<FormControl variant="outlined">
+					<InputLabel>UI (beta)</InputLabel>
+					<Select value={UI} onChange={e => setUI(e.target.value)} label="UI (beta)">
+						<MenuItem value="Original">Original</MenuItem>
+						<MenuItem value="Period Focus">Period Focus</MenuItem>
+					</Select>
+				</FormControl>
 			</DialogContent>
 			<DialogActions>
 				<Button
 					onClick={() => {
-						setTheme({type, background, boxColor, buttonColor, textColor, font})
+						setTheme({type, background, boxColor, buttonColor, textColor, font, UI})
 						tdClose()
 					}}
 				>Set</Button>
