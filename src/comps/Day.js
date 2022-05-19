@@ -141,7 +141,7 @@ function PFUI({date, time, block, period, schedule, testing}) {
 				<div>
 					<Typography align="center">{period.name.match(/[^\d]+/)[0].trim()}</Typography>
 					<Typography variant="h1" style={{ margin: 0, lineHeight: 1, width: "2.3ch" }} align="center">
-						{period.name.match(/\d+/)[0] || "-"}
+						{period.name.match(/\d+/)?.[0] || "-"}
 					</Typography>
 					<Typography align="center">{schedule.name}</Typography>
 				</div>
