@@ -200,52 +200,52 @@ function Home() {
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://healthscreening.schools.nyc/">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://healthscreening.schools.nyc/" target="_blank">
 										Health Screening
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.libguides.com/stuylib">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.libguides.com/stuylib" target="_blank">
 										Library Website
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://auth.ioeducation.com/users/sign_in">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://auth.ioeducation.com/users/sign_in" target="_blank">
 										PupilPath/Skedula
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/cms/pages/stuyvesant-blog/">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/cms/pages/stuyvesant-blog/" target="_blank">
 										Stuyvesant Blog
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/" target="_blank">
 										Talos
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.entest.org/Stuyvesant%20HS%20Early%20Excuse%20form%202021-22.pdf">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.entest.org/Stuyvesant%20HS%20Early%20Excuse%20form%202021-22.pdf" target="_blank">
 										Early Excuse Form
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSe9RTY0O8GkvnBE-P0VSh3TsH-ry57hanE8t5nOnq9UH3z9KQ/viewform">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSe9RTY0O8GkvnBE-P0VSh3TsH-ry57hanE8t5nOnq9UH3z9KQ/viewform" target="_blank">
 										Attendance Form
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.edu">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.edu" target="_blank">
 										Stuy Website
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuysu.org">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuysu.org" target="_blank">
 										Student Union
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSepfBAG922lzR32cYbhB9LsppePddO1qe0WgeveBflweel5pQ/viewform">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSepfBAG922lzR32cYbhB9LsppePddO1qe0WgeveBflweel5pQ/viewform" target="_blank">
 										Morning Ad Form
 									</Button>
 								</Grid>
