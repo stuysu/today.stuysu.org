@@ -147,6 +147,10 @@ function PFUI({date, time, block, period, schedule, testing}) {
 				</div>
 				<div style={{ flexGrow: 1 }} className={classes.leftRightPadding}>
 					<Grid container>
+						<Grid item xs={12}>
+							<Typography align="center" variant="h4">{time}</Typography>
+							<Typography align="center">{date}</Typography>
+						</Grid>
 						<Grid item xs={6}>
 							<Typography variant="h3" align="center">{period.into}</Typography>
 							<Typography align="center">minutes into</Typography>
@@ -154,10 +158,6 @@ function PFUI({date, time, block, period, schedule, testing}) {
 						<Grid item xs={6}>
 							<Typography variant="h3" align="center">{period.left}</Typography>
 							<Typography align="center">minutes left</Typography>
-						</Grid>
-						<Grid item xs={12}>
-							<Typography align="center" variant="h4">{time}</Typography>
-							<Typography align="center">{date}</Typography>
 						</Grid>
 						<Grid item xs={12}>
 							<div style={{ width: "100%", display: "flex", alignItems: "center"}} className={classes.leftRightPadding}>
