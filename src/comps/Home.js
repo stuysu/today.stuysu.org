@@ -11,8 +11,6 @@ const useStyles = makeStyles(theme => ({
 		background: theme.palette.boxColor || undefined
 	},
 	// have fun :)
-	// ok one note the whole magic number array 9 lines down is from this stackoverflow:
-	// https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
 	...(
 		theme.palette.boxes ?
 			(Object.fromEntries(Array(5).fill()
@@ -28,6 +26,13 @@ const useStyles = makeStyles(theme => ({
 				))) :
 			{}
 	),
+	// takes an array of five colors - theme.palette.boxes
+	// turns each one into an object with background set to the color and foreground set to black or white (see stackoverflow below)
+	// https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+	// puts those objects into an array, first element being paper1..5, creating a 5-length array of 2-length arrays
+	// turns those 2-length arrays (treating them as object entries, see Object.entries/Object.fromEntries at MDN for more info) into an object
+	// unpacks that object into the classes object this comment is in right now
+	// result is classes for paper1..5 with background and color set
 	virtCenter: {
 		display: "flex",
 		alignItems: "center",
