@@ -17,6 +17,8 @@ import {
 
 import { ThemeContext } from "./context/ThemeProvider"
 
+import prideflags from "../prideflags"
+
 const FONTS = [
 	"Montserrat",
 	"Open Sans",
@@ -44,6 +46,7 @@ export default function ThemeDialog({tdOpen, tdClose}) {
 	const [textColor, setTextColor] = useState(userTheme.textColor || undefined)
 	const [font, setFont] = useState(userTheme.font || "Roboto")
 	const [UI, setUI] = useState(userTheme.UI || "Original")
+	const [boxTheme, setBoxTheme] = useState(userTheme.boxTheme || "None")
 	return (
 		<Dialog open={tdOpen} onClose={tdClose}>
 			<DialogTitle>Theme</DialogTitle>
@@ -141,11 +144,24 @@ export default function ThemeDialog({tdOpen, tdClose}) {
 						<MenuItem value="Period Focus">Period Focus</MenuItem>
 					</Select>
 				</FormControl>
+				<br/>
+				<br/>
+				<FormControl variant="outlined">
+					<InputLabel>Box Theme</InputLabel>
+					<Select value={boxTheme} onChange={e => setBoxTheme(e.target.value)} label="Box Theme">
+						<MenuItem value={"None"}>None</MenuItem>
+						{
+							Object.keys(prideflags).map(flag =>
+								<MenuItem value={flag}>{flag}</MenuItem>
+							)
+						}
+					</Select>
+				</FormControl>
 			</DialogContent>
 			<DialogActions>
 				<Button
 					onClick={() => {
-						setTheme({type, background, boxColor, buttonColor, textColor, font, UI})
+						setTheme({type, background, boxColor, buttonColor, textColor, font, UI, boxTheme})
 						tdClose()
 					}}
 				>Set</Button>

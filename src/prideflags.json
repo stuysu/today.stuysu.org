@@ -1,0 +1,95 @@
+{
+	"Pride": [
+		"#e50000",
+		"#ff8d00",
+		"#ffee00",
+		"#008121",
+		"#004cff",
+		"// sorry violet there's only five boxes"
+	],
+	"MLM": [
+		"#26ceaa",
+		"#9be8c1",
+		"#ffffff",
+		"#7bade3",
+		"#5049cb",
+		"// chopped two colors off on the top and bottom"
+	],
+	"Lesbian": [
+		"#c92a00",
+		"#f09051",
+		"#ffffff",
+		"#c65c9a",
+		"#9a015c",
+		"// chopped two colors off on the top and bottom"
+	],
+	"Non-Binary": [
+		"#efe831",
+		"#efefef",
+		"#9454c6",
+		"#2a2a2a",
+		"#2a2a2a",
+		"// repeated last color twice"
+	],
+	"Transgender": [
+		"#58c3e9",
+		"#eaa0ae",
+		"#ffffff",
+		"#eaa0ae",
+		"#58c3e9"
+	],
+	"Asexual": [
+		"#000000",
+		"#a5a5a5",
+		"#ffffff",
+		"#810081",
+		"#810081",
+		"// repeated last color twice"
+	],
+	"Agender": [
+		"#b0b0b0",
+		"#ffffff",
+		"#afe87c",
+		"#ffffff",
+		"#b0b0b0",
+		"// chopped black off top and bottom"
+	],
+	"Aromantic": [
+		"#3aa740",
+		"#a8d47a",
+		"#ffffff",
+		"#ababab",
+		"#000000"
+	],
+	"Genderfluid": [
+		"#ff75a2",
+		"#ffffff",
+		"#be18d6",
+		"#000000",
+		"#333ebc"
+	],
+	"Bisexual": [
+		"#cb026a",
+		"#934b8e",
+		"#00359f",
+		"#cb026a",
+		"#00359f",
+		"// repeated top and bottom again"
+	],
+	"Pansexual": [
+		"#ff218c",
+		"#ffd800",
+		"#21b1ff",
+		"#ff218c",
+		"#21b1ff",
+		"// repeated top and bottom again"
+	],
+	"Polyamorous": [
+		"#0000f2",
+		"#f20000",
+		"#000000",
+		"#0000f2",
+		"#000000",
+		"// repeated top and bottom again; excluded pi symbol"
+	]
+}

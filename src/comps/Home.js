@@ -4,13 +4,30 @@ import { gql, useQuery } from "@apollo/client";
 import Day from "./Day";
 import ThemeDialog from "./ThemeDialog";
 import ApiDialog from "./ApiDialog";
-
 const useStyles = makeStyles(theme => ({
 	paper: {
 		padding: theme.spacing(1),
 		height: "100%",
 		background: theme.palette.boxColor || undefined
 	},
+	// have fun :)
+	// ok one note the whole magic number array 9 lines down is from this stackoverflow:
+	// https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+	...(
+		theme.palette.boxes ?
+			(Object.fromEntries(Array(5).fill()
+				.map((__, i) => ["paper" + (i+1), {
+					background: theme.palette.boxes[i],
+					color:
+						(/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(theme.palette.boxes[i])
+							.slice(1, 4)
+							.reduce((a, b, i) => a + parseInt(b, 16) * [0.299, 0.587, 0.114][i], 0)
+							> 186 ? "#000000" : "#ffffff")
+						+ " !important"
+						}]
+				))) :
+			{}
+	),
 	virtCenter: {
 		display: "flex",
 		alignItems: "center",
@@ -120,7 +137,7 @@ function Home() {
 				>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
-						<Paper className={fullscreen ? `${classes.paper} ${classes.fullscreen}` : `${classes.paper} ${classes.relative}`}>
+						<Paper className={fullscreen ? `${classes.paper} ${classes.fullscreen} ${classes.paper1}` : `${classes.paper} ${classes.relative} ${classes.paper1}`}>
 							<div className={classes.virtCenter}>
 								<div className={classes.virtCenter} style={{ flexDirection: "column" }}>
 									{data.today ? (
@@ -135,7 +152,7 @@ function Home() {
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
-						<Paper className={`${classes.paper} ${classes.scroll}`}>
+						<Paper className={`${classes.paper} ${classes.scroll} ${classes.paper2}`}>
 							<Typography align="center" className={classes.bold}>
 								Upcoming Events
 							</Typography>
@@ -143,7 +160,7 @@ function Home() {
 								<TableBody>
 									{data.upcomingEvents.map(ev => (
 										<TableRow key={ev.id}>
-											<TableCell>
+											<TableCell className={classes.paper2}>
 												{
 													["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][
 														new Date(ev.date).getUTCDay()
@@ -151,7 +168,7 @@ function Home() {
 												}
 												, {ev.date.split("-")[1]}/{ev.date.split("-")[2]}
 											</TableCell>
-											<TableCell>{ev.name}</TableCell>
+											<TableCell className={classes.paper2}>{ev.name}</TableCell>
 										</TableRow>
 									))}
 								</TableBody>
@@ -161,7 +178,7 @@ function Home() {
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
-						<Paper className={classes.paper}>
+						<Paper className={`${classes.paper} ${classes.paper3}`}>
 							<Typography className={classes.bold} align="center">
 								Quick Links
 							</Typography>
@@ -246,7 +263,7 @@ function Home() {
 				>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
-						<Paper className={classes.paper}>
+						<Paper className={`${classes.paper} ${classes.paper4}`}>
 							<Typography className={classes.bold} align="center">
 								General Announcements
 							</Typography>
@@ -263,7 +280,7 @@ function Home() {
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
-						<Paper className={classes.paper}>
+						<Paper className={`${classes.paper} ${classes.paper5}`}>
 							<Typography className={classes.bold} align="center">
 								Morning Announcements
 							</Typography>

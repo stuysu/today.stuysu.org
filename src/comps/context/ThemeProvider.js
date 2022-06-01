@@ -1,7 +1,10 @@
 import React, {useState, useMemo, createContext} from "react";
 import { ThemeProvider as Provider, createTheme } from "@material-ui/core"
 
+import prideflags from "../../prideflags"
+
 const ThemeContext = createContext({setTheme: () => {}, userTheme: {}})
+
 
 function ThemeProvider({children}) {
 	const [userTheme, setUserTheme] = useState(JSON.parse(window.localStorage.getItem("userTheme")) || {})
@@ -25,7 +28,8 @@ function ThemeProvider({children}) {
 				},
 				secondary: {
 					main: '#d4e157',
-				}
+				},
+				boxes: userTheme.boxTheme !== "None" ? prideflags[userTheme.boxTheme] : undefined
 			},
 			breakpoints: {
 				values: {
