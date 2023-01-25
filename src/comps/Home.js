@@ -200,23 +200,8 @@ function Home() {
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://healthscreening.schools.nyc/" target="_blank">
-										Health Screening
-									</Button>
-								</Grid>
-								<Grid item xs={6}>
 									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.libguides.com/stuylib" target="_blank">
 										Library Website
-									</Button>
-								</Grid>
-								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://auth.ioeducation.com/users/sign_in" target="_blank">
-										PupilPath/Skedula
-									</Button>
-								</Grid>
-								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/cms/pages/stuyvesant-blog/" target="_blank">
-										Stuyvesant Blog
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
@@ -225,18 +210,28 @@ function Home() {
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.entest.org/Stuyvesant%20HS%20Early%20Excuse%20form%202021-22.pdf" target="_blank">
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://login.jupitered.com/login/index.php?11027" target="_blank">
+										Jupiter
+									</Button>
+								</Grid>
+								<Grid item xs={6}>
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.enschool.org/" target="_blank">
+										Stuy Website
+									</Button>
+								</Grid>
+								<Grid item xs={6}>
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://talos.stuy.edu/cms/pages/stuyvesant-blog/" target="_blank">
+										Stuyvesant Blog
+									</Button>
+								</Grid>
+								<Grid item xs={6}>
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.enschool.org/ourpages/auto/2012/11/21/51834862/Final%20Version_9_21_22_Early%20Excuse%20Form.pdf" target="_blank">
 										Early Excuse Form
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSe9RTY0O8GkvnBE-P0VSh3TsH-ry57hanE8t5nOnq9UH3z9KQ/viewform" target="_blank">
-										Attendance Form
-									</Button>
-								</Grid>
-								<Grid item xs={6}>
-									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.edu" target="_blank">
-										Stuy Website
+									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.enschool.org/ourpages/auto/2012/11/21/51834862/Final%20Version_9_21_22_Absence_Lateness%20Form%20.pdf" target="_blank">
+										Absent/Late Form
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
