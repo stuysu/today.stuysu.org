@@ -1,95 +1,97 @@
-import React, { useState } from "react";
-import { Grid, Paper, Typography, Table, TableBody, TableRow, TableCell, Button, makeStyles } from "@material-ui/core";
-import { gql, useQuery } from "@apollo/client";
+import {gql, useQuery} from "@apollo/client";
+import {
+  Button,
+  Grid,
+  makeStyles,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography
+} from "@material-ui/core";
+import React, {useState} from "react";
+
+import ApiDialog from "./ApiDialog";
 import Day from "./Day";
 import ThemeDialog from "./ThemeDialog";
-import ApiDialog from "./ApiDialog";
-const useStyles = makeStyles(theme => ({
-	paper: {
-		padding: theme.spacing(1),
-		height: "100%",
-		background: theme.palette.boxColor || undefined
-	},
-	// have fun :)
-	...(
-		theme.palette.boxes ?
-			(Object.fromEntries(Array(5).fill()
-				.map((__, i) => ["paper" + (i+1), {
-					background: theme.palette.boxes[i],
-					color:
-						(/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(theme.palette.boxes[i])
-							.slice(1, 4)
-							.reduce((a, b, i) => a + parseInt(b, 16) * [0.299, 0.587, 0.114][i], 0)
-							> 186 ? "#000000" : "#ffffff")
-						+ " !important"
-						}]
-				))) :
-			{}
-	),
-	// takes an array of five colors - theme.palette.boxes
-	// turns each one into an object with background set to the color and foreground set to black or white (see stackoverflow below)
-	// https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-	// puts those objects into an array, first element being paper1..5, creating a 5-length array of 2-length arrays
-	// turns those 2-length arrays (treating them as object entries, see Object.entries/Object.fromEntries at MDN for more info) into an object
-	// unpacks that object into the classes object this comment is in right now
-	// result is classes for paper1..5 with background and color set
-	virtCenter: {
-		display: "flex",
-		alignItems: "center",
-		alignContent: "center",
-		justifyContent: "center",
-		flexWrap: "wrap",
-		minHeight: "100%"
-	},
-	virtCenterChild: {
-		padding: theme.spacing(1)
-	},
-	bold: { fontWeight: "bold" },
-	html: {
-		"& *": {
-			margin: 0
-		},
-		"& a": {
-			fontWeight: "bold",
-			color: `${theme.palette.primary.main} !important`
-		}
-	},
-	body: {
-		backgroundColor: theme.palette.bodyBackground
-	},
-	noMargin: {
-		margin: 0,
-		width: "100%",
-	},
-	button: {
-		height: "100%",
-		textAlign: "center"
-	},
-	fullscreen: {
-		position: "fixed",
-		height: "100%",
-		width: "100%",
-		top: "0",
-		left: "0",
-		zIndex: "1000"
-	},
-	relative: {
-		position: "relative"
-	},
-	spacer: {
-		display: "none",
-		[theme.breakpoints.only("md")]: {
-			display: "block"
-		}
-	},
-	noDisplay: {
-		display: "none"
-	},
-	scroll: {
-		overflowY: "auto",
-		maxHeight: "300px"
-	}
-}));
+
+const useStyles = makeStyles(
+    theme => ({
+      paper : {
+        padding : theme.spacing(1),
+        height : "100%",
+        background : theme.palette.boxColor || undefined
+      },
+      // have fun :)
+      ...(theme.palette.boxes
+              ? (Object.fromEntries(Array(5).fill().map(
+                    (__, i) => ["paper" + (i + 1), {
+                      background : theme.palette.boxes[i],
+                      color :
+                          (/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
+                                       .exec(theme.palette.boxes[i])
+                                       .slice(1, 4)
+                                       .reduce(
+                                           (a, b, i) =>
+                                               a +
+                                               parseInt(b, 16) *
+                                                   [ 0.299, 0.587, 0.114 ][i],
+                                           0) > 186
+                               ? "#000000"
+                               : "#ffffff") +
+                              " !important"
+                    }])))
+              : {}),
+      // takes an array of five colors - theme.palette.boxes
+      // turns each one into an object with background set to the color and
+      // foreground set to black or white (see stackoverflow below)
+      // https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+      // puts those objects into an array, first element being paper1..5,
+      // creating a 5-length array of 2-length arrays turns those 2-length
+      // arrays (treating them as object entries, see
+      // Object.entries/Object.fromEntries at MDN for more info) into an object
+      // unpacks that object into the classes object this comment is in right
+      // now result is classes for paper1..5 with background and color set
+      virtCenter : {
+        display : "flex",
+        alignItems : "center",
+        alignContent : "center",
+        justifyContent : "center",
+        flexWrap : "wrap",
+        minHeight : "100%"
+      },
+      virtCenterChild : {padding : theme.spacing(1)},
+      bold : {fontWeight : "bold"},
+      html : {
+        "& *" : {margin : 0},
+        "& a" : {
+          fontWeight : "bold",
+          color : `${theme.palette.primary.main} !important`
+        }
+      },
+      body : {backgroundColor : theme.palette.bodyBackground},
+      noMargin : {
+        margin : 0,
+        width : "100%",
+      },
+      button : {height : "100%", textAlign : "center"},
+      fullscreen : {
+        position : "fixed",
+        height : "100%",
+        width : "100%",
+        top : "0",
+        left : "0",
+        zIndex : "1000"
+      },
+      relative : {position : "relative"},
+      spacer : {
+        display : "none",
+        [theme.breakpoints.only("md")] : {display : "block"}
+      },
+      noDisplay : {display : "none"},
+      scroll : {overflowY : "auto", maxHeight : "300px"}
+    }));
 
 const QUERY = gql`
 	query {
@@ -114,33 +116,36 @@ const QUERY = gql`
 `;
 
 function Home() {
-	const classes = useStyles();
+  const classes = useStyles();
 
-	const { loading, error, data } = useQuery(QUERY);
-	const [fullscreen, setFullscreen] = useState(false)
+  const {loading, error, data} = useQuery(QUERY);
+  const [fullscreen, setFullscreen] = useState(false)
 
-	const [tdOpen, setTdOpen] = useState(false)
-	const [apiOpen, setApiOpen] = useState(false)
+  const [tdOpen, setTdOpen] = useState(false)
+  const [apiOpen, setApiOpen] = useState(false)
 
-	if (loading) return <Typography align="center">Loading...</Typography>;
+  if (loading) return <Typography align = "center">Loading...<
+      /Typography>;
 	if (error) {
 		console.error(error);
 		return <Typography align="center">Error grabbing data: {error.messsage}</Typography>;
-	}
+}
 
-	return (
+        return (
 		<>
-			<ThemeDialog tdOpen={tdOpen} tdClose={() => setTdOpen(false)}/>
+			<ThemeDialog tdOpen={tdOpen} tdClose={
+  () => setTdOpen(false)}/>
 			<ApiDialog apiOpen={apiOpen} apiClose={() => setApiOpen(false)}/>
 			<div className={`${classes.virtCenter} ${classes.body}`}>
 				<Grid
-					container
-					justifyContent="center"
-					alignItems="stretch"
-					spacing={1}
+        container
+        justifyContent = "center"
+        alignItems = "stretch"
+                                        spacing={1}
 					className={`${classes.virtCenterChild} ${classes.noMargin}`}
 				>
-					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={
+  0}/>
 					<Grid item xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={fullscreen ? `${classes.paper} ${classes.fullscreen} ${classes.paper1}` : `${classes.paper} ${classes.relative} ${classes.paper1}`}>
 							<div className={classes.virtCenter}>
@@ -155,7 +160,8 @@ function Home() {
 						</Paper>
 					</Grid>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
-					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={
+  0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={`${classes.paper} ${classes.scroll} ${classes.paper2}`}>
 							<Typography align="center" className={classes.bold}>
@@ -171,7 +177,8 @@ function Home() {
 														new Date(ev.date).getUTCDay()
 													]
 												}
-												, {ev.date.split("-")[1]}/{ev.date.split("-")[2]}
+												, {
+  ev.date.split("-")[1]}/{ev.date.split("-")[2]}
 											</TableCell>
 											<TableCell className={classes.paper2}>{ev.name}</TableCell>
 										</TableRow>
@@ -180,7 +187,8 @@ function Home() {
 							</Table>
 						</Paper>
 					</Grid>
-					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={
+  0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={`${classes.paper} ${classes.paper3}`}>
@@ -201,7 +209,7 @@ function Home() {
 								</Grid>
 								<Grid item xs={6}>
 									<Button className={classes.button} fullWidth variant="contained" color="primary" href="https://stuy.libguides.com/stuylib" target="_blank">
-										Library Website
+                                                                                Library Website
 									</Button>
 								</Grid>
 								<Grid item xs={6}>
@@ -277,7 +285,8 @@ function Home() {
 							/>
 						</Paper>
 					</Grid>
-					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={
+  0}/>
 					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
 					<Grid item className={fullscreen && classes.noDisplay} xl={3} lg={4} md={6} sm={8} xs={12}>
 						<Paper className={`${classes.paper} ${classes.paper5}`}>
@@ -294,11 +303,12 @@ function Home() {
 							/>
 						</Paper>
 					</Grid>
-					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={0}/>
+					<Grid item className={classes.spacer} xl={0} lg={0} md={3} sm={0} xs={
+  0}/>
 				</Grid>
 			</div>
 		</>
 	);
-}
+                                                                                }
 
-export default Home;
+                                                                                export default Home;
